@@ -1,4 +1,4 @@
-from PRSAW import *
+from .PRSAW import *
 
 __title__ = "prsaw"
 __summary__ = (
