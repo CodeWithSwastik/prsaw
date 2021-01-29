@@ -1,15 +1,8 @@
 from setuptools import setup, find_packages
- 
-classifiers = [
-  'Development Status :: 3 - Alpha',
-  'Intended Audience :: Developers',
-  'License :: OSI Approved :: MIT License',
-  'Programming Language :: Python :: 3'
-]
 
 setup(
   name='prsaw',
-  version='0.1.1',
+  version='0.1.2',
   description='PRSAW, an acronym for `Python Random Stuff API Wrapper`, is a wrapper for the Random Stuff API.',
   long_description=open('README.md').read(),
   long_description_content_type = "text/markdown",
@@ -17,8 +10,13 @@ setup(
   author='Swas.py',
   author_email='cwswas.py@gmail.com',
   license='MIT', 
-  classifiers=classifiers,
+  classifiers=[
+    'Development Status :: 3 - Alpha',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: MIT License',
+    'Programming Language :: Python :: 3'
+  ],
   keywords='random stuff, api, wrapper', 
   packages=find_packages(),
-  install_requires=[''] 
+  install_requires=['aiohttp'] 
 )

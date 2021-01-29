@@ -1,52 +1,51 @@
-import requests
-
-API_ENDPOINT = "https://api.pgamerx.com"
-JOKE_ENDPOINT = API_ENDPOINT + "/joke"
-IMAGE_ENDPOINT = API_ENDPOINT + "/image"
-AI_ENDPOINT = API_ENDPOINT + "/ai"
-
+from aiohttp import ClientSession
+from urllib.parse import quote
 
 class RandomStuff:
-
-
     """
     A Wrapper for the Random Stuff API.
 
     Example Usage:
     
         rs = RandomStuff()
-        rs.create_session()
-        joke = rs.get_joke()
+        joke = await rs.get_joke()
         print(joke)
+        await rs.close()
     """
     def __init__(self):
-        self.session = None
+        self.session = ClientSession()
+        self.base_url = "https://api.pgamerx.com"
+        self._joke_types = ("dev", "spooky", "pun")
+        self._image_types = ("aww", "duck", "dog", "cat", "memes", "dankmemes", "holup", "art", "harrypottermemes", "facepalm")
 
-    def create_session(self):
-        self.session = requests.Session()
+    async def get_joke(self, _type: str = "any") -> dict:
+        if _type.lower() not in self._joke_types:
+            _type = "any"
+        
+        response = await self.session.get(f"{self.base_url}/joke/{_type.lower()}")
+        try:
+            return await response.json()
+        except:
+            return
 
-    def get_joke(self,_type="any"):
+    async def get_image(self, _type: str = "any") -> str:
+        if _type.lower() not in self._image_types:
+            _type = "any"
+        
+        response = await self.session.get(f"{self.base_url}/image/{_type.lower()}")
+        try:
+            json = await response.json()
+            return json[0]
+        except:
+            return
 
-        jokeEndpoint = JOKE_ENDPOINT+ f"/{_type}"
-        with self.session.get(jokeEndpoint) as response:
-            result = response.json()
-        return result
+    async def get_ai_response(self, msg: str) -> str:
+        response = await self.session.get(f"{self.base_url}/ai/response?message={quote(msg)}")
+        try:
+            json = await response.json()
+            return json[0]
+        except:
+            return
 
-    def get_image(self,_type="any"):
-
-        imgEndpoint = IMAGE_ENDPOINT+ f"/{_type}"
-        with self.session.get(imgEndpoint) as response:
-            result = response.json()
-        return result
-
-    def get_ai_response(self,msg):
-
-        aiEndpoint = AI_ENDPOINT+ f"/response?message={msg}&?lanuage=en"
-        with self.session.get(aiEndpoint) as response:
-            result = response.json()
-        return result
-
-
-    def close(self):
-        return self.session.close()
-
+    async def close(self) -> None:
+        await self.session.close()
