@@ -31,7 +31,7 @@ The current list of functions available are:
     
 
 ```python
-get_joke(_type = "any")  # Refer to https://api.pgamerx.com/
+get_joke(_type = "any")  # Refer to https://api.pgamerx.com/endpoints
 get_image(_type = "any") # for all the endpoints
 get_ai_response(msg) 
  ```
