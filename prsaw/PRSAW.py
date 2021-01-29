@@ -47,5 +47,5 @@ class RandomStuff:
         except:
             return
 
-    async def close(self)
+    async def close(self):
         return await self.session.close()

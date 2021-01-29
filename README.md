@@ -31,7 +31,11 @@ await rs.close()
 The current list of asynchronous functions available are:
 
 ```python
+# endpoints
 await get_joke(_type = "any")  # Refer to https://api.pgamerx.com/endpoints
 await get_image(_type = "any") # for all the endpoints
-await get_ai_response(msg) 
+await get_ai_response(msg)
+
+# others
+await close() # closes the object
  ```
