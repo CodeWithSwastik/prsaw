@@ -39,7 +39,7 @@ class RandomStuff:
         except:
             return
 
-    async def get_ai_response(self, msg):
+    async def get_ai_response(self, msg: str) -> str:
         response = await self.session.get(f"{self.base_url}/ai/response?message={quote(msg)}")
         try:
             json = await response.json()
@@ -47,5 +47,5 @@ class RandomStuff:
         except:
             return
 
-    async def close(self):
-        return await self.session.close()
+    async def close(self) -> None:
+        await self.session.close()
