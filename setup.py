@@ -9,7 +9,7 @@ classifiers = [
 
 setup(
   name='prsaw',
-  version='0.1.0',
+  version='0.1.1',
   description='PRSAW, an acronym for `Python Random Stuff API Wrapper`, is a wrapper for the Random Stuff API.',
   long_description=open('README.md').read(),
   long_description_content_type = "text/markdown",
