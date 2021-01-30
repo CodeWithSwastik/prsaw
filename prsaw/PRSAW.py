@@ -40,7 +40,7 @@ class RandomStuff:
             return
 
     async def get_ai_response(self, msg: str) -> str:
-        response = await self.session.get(f"{self.base_url}/ai/response?message={quote(msg)}")
+        response = await self.session.get(f"{self.base_url}/ai/response?message={quote(msg)}&?language=en")
         try:
             json = await response.json()
             return json[0]
