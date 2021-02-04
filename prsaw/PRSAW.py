@@ -1,7 +1,3 @@
-import warnings
-import json
-from urllib.parse import quote
-
 import httpx
 from apiclient import APIClient, APIRouter, Get, endpoint
 
@@ -13,6 +9,12 @@ class RandomStuff(APIClient):
     Example Usage:
 
         rs = RandomStuff()
+        joke = rs.get_joke()
+        print(joke)
+        rs.close()
+
+    Example async usage:
+        rs = RandomStuff(async_mode=True)
         joke = await rs.get_joke()
         print(joke)
         await rs.close()
