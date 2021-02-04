@@ -18,5 +18,5 @@ setup(
   ],
   keywords='random stuff, api, wrapper', 
   packages=find_packages(),
-  install_requires=['aiohttp'] 
+  install_requires=['instant-api-client==0.1.0'] 
 )
