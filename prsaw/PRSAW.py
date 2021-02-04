@@ -26,7 +26,7 @@ class RandomStuff(APIClient):
                     "dankmemes", "holup", "art", "harrypottermemes", "facepalm", "any")
 
     def __init__(self, *, async_mode=False):
-        session = httpx.Client() if async_mode else httpx.AsyncClient()
+        session = httpx.AsyncClient() if async_mode else httpx.Client()
         super().__init__(session=session)
 
     def _pre_init(self):
@@ -52,6 +52,10 @@ class RandomStuff(APIClient):
     @endpoint
     def get_ai_response(self, msg: str, *, lang="en") -> str:
         return Get("/ai/response", params={"message": msg, "language": lang})
+
+    def _post_get_image(self, res):
+        return res[0]
+    _post_get_ai_response = _post_get_image
 
     def close(self):
         return self.session.close()
