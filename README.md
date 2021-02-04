@@ -1,4 +1,4 @@
-# PRSAW 0.1.2
+# PRSAW 0.2.0
 
 PRSAW, an acronym for `Python Random Stuff API Wrapper`, is a wrapper for the Random Stuff API.
 PyPI: https://pypi.org/project/prsaw/ 
