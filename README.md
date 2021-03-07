@@ -19,8 +19,22 @@ from prsaw import RandomStuff
 rs = RandomStuff()
 
 # get a response from an endpoint
-response = await rs.get_ai_response("How are you?")
+response =  rs.get_ai_response("How are you?")
 print(response)
+
+```
+
+## Example async usage:
+```python
+# import the module
+from prsaw import RandomStuff
+
+# initiate the object with async mode
+rs = RandomStuff(async_mode=True)
+
+# get a joke
+joke = await rs.get_joke()
+print(joke)
 
 # close the object once done (recommended)
 await rs.close()
