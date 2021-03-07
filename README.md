@@ -22,6 +22,8 @@ rs = RandomStuff()
 response =  rs.get_ai_response("How are you?")
 print(response)
 
+# close the object once done (recommended)
+rs.close()
 ```
 
 ## Example async usage:
