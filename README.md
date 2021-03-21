@@ -37,9 +37,6 @@ rs = RandomStuff(async_mode=True)
 # get a joke
 joke = await rs.get_joke()
 print(joke)
-
-# close the object once done (recommended)
-await rs.close()
 ```
 
 ## Functions available:
