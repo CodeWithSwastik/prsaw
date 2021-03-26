@@ -11,7 +11,7 @@ You can install released versions of prsaw from the Python Package Index with pi
 **Stable Release:** `pip install prsaw`<br>
 **Working Version:** `pip install git+https://github.com/CodeWithSwastik/prsaw.git`
 
-## Example Usage:
+## Example Usage
 ```python
 # import the module
 from prsaw import RandomStuff
@@ -27,7 +27,7 @@ print(response)
 rs.close()
 ```
 
-## Example async usage:
+## Example async usage
 ```python
 # import the module
 from prsaw import RandomStuff
@@ -40,7 +40,7 @@ joke = await rs.get_joke()
 print(joke)
 ```
 
-## Functions available:
+## Functions available
 
 The current list of asynchronous functions available are:
 
