@@ -19,14 +19,33 @@ class RandomStuff(APIClient):
         print(joke)
         await rs.close()
     """
-    base_url = "https://api.pgamerx.com"
 
     _joke_types = ("dev", "spooky", "pun", "any")
-    _image_types = ("aww", "duck", "dog", "cat", "memes",
-                    "dankmemes", "holup", "art", "harrypottermemes", "facepalm", "any")
+    _image_types = (
+        "aww",
+        "duck",
+        "dog",
+        "cat",
+        "memes",
+        "dankmemes",
+        "holup",
+        "art",
+        "harrypottermemes",
+        "facepalm",
+        "any",
+    )
 
-    def __init__(self, *, async_mode=False):
+    def __init__(self, *, async_mode=False, demo=True, api_key: str = None):
         session = httpx.AsyncClient() if async_mode else httpx.Client()
+        self.base_url = "https://api.pgamerx.com"
+        if demo:
+            self.base_url += "/demo"
+        if api_key:
+            session.params["api_key"] = api_key
+
+        self.demo = demo
+        self.api_key = api_key
+
         super().__init__(session=session)
 
     def _pre_init(self):
@@ -55,6 +74,7 @@ class RandomStuff(APIClient):
 
     def _post_get_image(self, res):
         return res[0]
+
     _post_get_ai_response = _post_get_image
 
     def close(self):

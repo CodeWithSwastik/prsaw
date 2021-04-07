@@ -1,4 +1,5 @@
 import pytest
+
 from prsaw import RandomStuff
 
 from . import joke_response_keys
