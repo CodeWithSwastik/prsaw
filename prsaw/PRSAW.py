@@ -35,17 +35,15 @@ class RandomStuff(APIClient):
         "any",
     )
 
-    def __init__(self, *, async_mode=False, demo=True, api_key: str = None):
+    def __init__(self, *, async_mode=False, api_key: str = None):
         session = httpx.AsyncClient() if async_mode else httpx.Client()
         self.base_url = "https://api.pgamerx.com"
-        if demo:
-            self.base_url += "/demo"
         if api_key:
             session.params["api_key"] = api_key
-
-        self.demo = demo
+        else:
+            self.base_url += "/demo"
+            
         self.api_key = api_key
-
         super().__init__(session=session)
 
     def _pre_init(self):
