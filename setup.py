@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="prsaw",
-    version="0.3.0",
+    version="0.3.1",
     description="PRSAW, an acronym for `Python Random Stuff API Wrapper`, is a wrapper for the Random Stuff API.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
@@ -18,5 +18,5 @@ setup(
     ],
     keywords="random stuff, api, wrapper",
     packages=find_packages(),
-    install_requires=["instant-api-client==0.1.1"],
+    install_requires=["instant-api-client==0.1.2"],
 )
