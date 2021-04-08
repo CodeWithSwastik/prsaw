@@ -34,7 +34,8 @@ rs.close()
 from prsaw import RandomStuff
 
 # initiate the object with async mode
-rs = RandomStuff(async_mode=True)
+api_key = "Your API Key"
+rs = RandomStuff(async_mode = True, api_key = api_key)
 
 # get a joke
 joke = await rs.get_joke()
