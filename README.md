@@ -1,4 +1,4 @@
-# PRSAW 0.2.0
+# PRSAW 0.3.0
 [![Downloads](https://static.pepy.tech/personalized-badge/prsaw?period=total&units=international_system&left_color=green&right_color=orange&left_text=Downloads)](https://pepy.tech/project/prsaw)
 
 PRSAW, an acronym for `Python Random Stuff API Wrapper`, is a wrapper for the Random Stuff API.
@@ -17,7 +17,8 @@ You can install released versions of prsaw from the Python Package Index with pi
 from prsaw import RandomStuff
 
 # initiate the object
-rs = RandomStuff()
+api_key = "Your API Key"
+rs = RandomStuff(api_key = api_key) # You can avoid this step if you don't have an api key
 
 # get a response from an endpoint
 response =  rs.get_ai_response("How are you?")
@@ -39,6 +40,7 @@ rs = RandomStuff(async_mode=True)
 joke = await rs.get_joke()
 print(joke)
 ```
+
 
 ## Functions available
 
