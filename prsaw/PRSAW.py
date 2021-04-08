@@ -8,13 +8,13 @@ class RandomStuff(APIClient):
 
     Example Usage:
 
-        rs = RandomStuff()
+        rs = RandomStuff(api_key = "Your API Key")
         joke = rs.get_joke()
         print(joke)
         rs.close()
 
     Example async usage:
-        rs = RandomStuff(async_mode=True)
+        rs = RandomStuff(async_mode=True, api_key="Your API Key")
         joke = await rs.get_joke()
         print(joke)
         await rs.close()
