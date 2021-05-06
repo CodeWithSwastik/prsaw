@@ -5,16 +5,13 @@ from apiclient import APIClient, APIRouter, Get, endpoint
 class RandomStuff(APIClient):
     """
     A Wrapper for the Random Stuff API.
-
     Example Usage:
-
-        rs = RandomStuff(api_key = "Your API Key")
+        rs = RandomStuff(api_key = "Your API Key", plan = "Plan type" (only if purchased premium) )
         joke = rs.get_joke()
         print(joke)
         rs.close()
-
     Example async usage:
-        rs = RandomStuff(async_mode=True, api_key="Your API Key")
+        rs = RandomStuff(async_mode=True, api_key="Your API Key", plan = "Plan type" (only if purchased premium))
         joke = await rs.get_joke()
         print(joke)
         await rs.close()
@@ -35,15 +32,27 @@ class RandomStuff(APIClient):
         "any",
     )
 
-    def __init__(self, *, async_mode=False, api_key: str = None):
+    types = {
+        "pro",
+        "ultra",
+        "mega",
+        "biz"
+    }
+
+    def __init__(self, *, async_mode=False, api_key: str = None , type: str):
         session = httpx.AsyncClient() if async_mode else httpx.Client()
-        self.base_url = "https://api.pgamerx.com"
+        self.base_url = "https://api.pgamerx.com/v3"
         if api_key:
-            session.params["api_key"] = api_key
+            session.headers["x-api-key"] = api_key
         else:
-            self.base_url += "/demo"
-            
+            self.base_url += "https://api.pgamerx.com/demo"
+         
+         if typeee:
+          if typeee.lower() not in self.types:
+          raise RuntimeError("Unknown Premium Membership type provided: {}".format(typeee))
+           
         self.api_key = api_key
+        self.premium_type = typeee
         super().__init__(session=session)
 
     def _pre_init(self):
@@ -67,9 +76,13 @@ class RandomStuff(APIClient):
         return Get("/image/" + _type)
 
     @endpoint
-    def get_ai_response(self, msg: str, *, lang="en") -> str:
-        return Get("/ai/response", params={"message": msg, "language": lang})
-
+    def get_ai_response(self, msg: str, *, lang="en", _type: str = "stable") -> str:
+         _type = _type.lower()
+        if self.type : 
+        return Get(self.type + "/ai/response", params={"message": msg, "language": lang, "type": _type })
+        else : 
+        return Get("/ai/response", params={"message": msg, "language": lang, "type": _type })
+        
     def _post_get_image(self, res):
         return res[0]
 
