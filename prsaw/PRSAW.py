@@ -45,7 +45,7 @@ class RandomStuff(APIClient):
         if api_key:
             session.headers["x-api-key"] = api_key
         else:
-            self.base_url += "https://api.pgamerx.com/demo"
+            self.base_url = "https://api.pgamerx.com/demo"
          
          if typeee:
           if typeee.lower() not in self.types:
