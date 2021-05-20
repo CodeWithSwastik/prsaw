@@ -76,4 +76,9 @@ class RandomStuff(APIClient):
     _post_get_ai_response = _post_get_image
 
     def close(self):
+        """Closes a sync httpx client. For async usage, Use `RandomStuff.aclose()` method instead"""
         return self.session.close()
+    
+    async def aclose(self):
+        """Closes an Async httpx client. For normal usage, Use `RandomStuff.close()` method instead"""
+        return await self.session.aclose()
