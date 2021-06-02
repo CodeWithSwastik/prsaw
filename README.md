@@ -40,6 +40,9 @@ rs = RandomStuff(async_mode = True, api_key = api_key)
 # get a joke
 joke = await rs.get_joke()
 print(joke)
+
+# close the session
+await rs.aclose()
 ```
 
 
@@ -54,7 +57,7 @@ await get_image(_type = "any") # for all the endpoints
 await get_ai_response(msg)
 
 # others
-await close() # closes the object
+await aclose() # closes the object
  ```
  
  ## Important Links
