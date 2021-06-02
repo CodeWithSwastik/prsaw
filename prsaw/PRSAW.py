@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Dict, Optional
 
 import httpx
 from apiclient import APIClient, Get, endpoint
@@ -43,7 +44,7 @@ class BaseClient(APIClient):
     def close(self):
         session = self.session
         return (
-            session.close() if isinstance(session, httpx.Client) else session.aclose()
+            session.close() if isinstance(session, httpx.Client) else session.aclose()  # type: ignore
         )
 
 
@@ -66,12 +67,15 @@ class RandomStuff(BaseClient):
     """
 
     def __init__(self, *, async_mode=False, api_key: str = None):
-        session = httpx.AsyncClient() if async_mode else httpx.Client()
+        Session = httpx.AsyncClient if async_mode else httpx.Client
         self.base_url = "https://api.pgamerx.com"
+        params = {}
         if api_key:
-            session.params["api_key"] = api_key
+            params["api_key"] = api_key
         else:
             self.base_url += "/demo"
+
+        session = Session(params=params)
 
         self.api_key = api_key
         super().__init__(session=session)
@@ -104,7 +108,7 @@ class RandomStuffV3(BaseClient):
         bot_name: str = None,
         ai_language: str = None,
     ):
-        session = httpx.AsyncClient() if async_mode else httpx.Client()
+        Session = httpx.AsyncClient if async_mode else httpx.Client
 
         # URL construction
         self.base_url = "https://api.pgamerx.com/v3"
@@ -112,9 +116,11 @@ class RandomStuffV3(BaseClient):
             self.base_url += "/" + plan.value
 
         # Authorization
+        headers = {}
         if api_key:
-            session.headers["x-api-key"] = api_key
+            headers["x-api-key"] = api_key
 
+        session = Session(headers=headers)
         self.dev_name = dev_name
         self.bot_name = bot_name
         self.ai_language = ai_language
@@ -132,7 +138,7 @@ class RandomStuffV3(BaseClient):
         bot_name: str = None,
         language: str = None,
     ):
-        params = {"message": message}
+        params: Dict[str, Optional[str]] = {"message": message}
         if unique_id:
             params["unique_id"] = unique_id
 
@@ -146,3 +152,69 @@ class RandomStuffV3(BaseClient):
             params["bot_name"] = bot_name or self.bot_name
 
         return Get("/ai/response", params=params)
+
+
+class RandomStuffV4(BaseClient):
+    def __init__(
+        self,
+        api_key: str,
+        *,
+        async_mode=False,
+        plan: ApiPlan = None,
+        server: str = None,
+        dev_name: str = None,
+        bot_name: str = None,
+        ai_language: str = None,
+    ):
+        Session = httpx.AsyncClient if async_mode else httpx.Client
+
+        # URL construction
+        self.base_url = "https://api.pgamerx.com/v4"
+        self.plan = plan
+
+        # Authorization
+        headers = {}
+        params = {}
+        if api_key:
+            headers["x-api-key"] = api_key
+        if plan:
+            params["plan"] = plan.value
+        if server:
+            params["server"] = server
+
+        session = Session(headers=headers, params=params)
+        self.dev_name = dev_name
+        self.bot_name = bot_name
+        self.ai_language = ai_language
+
+        self.api_key = api_key
+        super().__init__(session=session)
+
+    @endpoint
+    def get_ai_response(
+        self,
+        message: str,
+        *,
+        unique_id: str = None,
+        dev_name: str = None,
+        bot_name: str = None,
+        language: str = None,
+    ):
+        params: Dict[str, Optional[str]] = {"message": message}
+        if unique_id:
+            params["uid"] = unique_id
+
+        if dev_name or self.dev_name:
+            params["master"] = dev_name or self.dev_name
+
+        if language or self.ai_language:
+            params["language"] = dev_name or self.ai_language or "english"
+
+        if bot_name or self.bot_name:
+            params["bot"] = bot_name or self.bot_name
+
+        if self.plan:
+            url = f"/{self.plan.value}/ai/"
+        else:
+            url = "/ai/"
+        return Get(url, params=params)
