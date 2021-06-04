@@ -11,24 +11,23 @@ You can install released versions of prsaw from the Python Package Index with pi
 **Stable Release:** `pip install prsaw`<br>
 **Working Version:** `pip install git+https://github.com/CodeWithSwastik/prsaw.git`
 
-## Example Usage
+## Example Usage (No API KEY)
 ```python
 # import the module
 from prsaw import RandomStuff
 
 # initiate the object
-api_key = "Your API Key"
-rs = RandomStuff(api_key = api_key) # You can avoid this step if you don't have an api key
+rs = RandomStuffV2() 
 
 # get a response from an endpoint
-response =  rs.get_ai_response("How are you?")
+response = rs.get_ai_response("How are you?")
 print(response)
 
 # close the object once done (recommended)
 rs.close()
 ```
 
-## Example async usage
+## Example async usage (With an API key)
 ```python
 # import the module
 from prsaw import RandomStuff
