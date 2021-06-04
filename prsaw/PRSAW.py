@@ -26,6 +26,16 @@ class BaseClient(APIClient):
 
     @endpoint
     def get_joke(self, _type: str = "any") -> dict:
+        """Gets a random joke
+        
+        Parameters:
+            - _type (str): The type of joke. Leave it or use `any` for a random type.
+                           Can be: ('dev', 'spooky', 'pun', 'any')
+        
+        Returns:
+            - str: The random joke
+        """
+        
         _type = _type.lower()
         if _type.lower() not in self._joke_types:
             raise RuntimeError("Unknown joke type provided: {}".format(_type))
@@ -34,6 +44,15 @@ class BaseClient(APIClient):
 
     @endpoint
     def get_image(self, _type: str = "aww") -> str:
+        """Gets a random image
+        
+        Parameters:
+            - _type (str): The type of joke. Use `any` for a random type.
+                           Can be: ('aww', 'duck', 'dog', 'cat', 'memes', 'dankmemes', 'holup', 'art', 'harrypottermemes', 'facepalm', 'any')
+        
+        Returns:
+            - str: The random joke
+        """
         _type = _type.lower()
         if _type not in self._image_types:
             raise RuntimeError("Unknown image type provided: {}".format(_type))
@@ -81,13 +100,21 @@ class RandomStuffV2(BaseClient):
 
     @endpoint
     def get_ai_response(self, msg: str, *, lang="en") -> str:
+        """Gets random AI response
+        
+        Parameters:
+            - msg (str): The message on which the response is required.
+            - lang (str): The language in which response is required. It is `en` (English) by default.
+        
+        Returns:
+            - str : The random response.
+        """
         return Get("/ai/response", params={"message": msg, "language": lang})
 
     def _post_get_image(self, res):
         return res[0]
 
     _post_get_ai_response = _post_get_image
-
 
 class ApiPlan(Enum):
     PRO = "pro"
