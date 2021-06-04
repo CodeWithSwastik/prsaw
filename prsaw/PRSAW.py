@@ -18,7 +18,6 @@ class BaseClient(APIClient):
         "art",
         "harrypottermemes",
         "facepalm",
-        "any",
     )
 
     def _pre_init(self):
@@ -34,7 +33,7 @@ class BaseClient(APIClient):
         return Get("/joke/" + _type)
 
     @endpoint
-    def get_image(self, _type: str = "any") -> str:
+    def get_image(self, _type: str = "aww") -> str:
         _type = _type.lower()
         if _type not in self._image_types:
             raise RuntimeError("Unknown image type provided: {}".format(_type))
@@ -48,7 +47,7 @@ class BaseClient(APIClient):
         )
 
 
-class RandomStuff(BaseClient):
+class RandomStuffV2(BaseClient):
     """
     A Wrapper for the Random Stuff API.
 
@@ -191,6 +190,22 @@ class RandomStuffV4(BaseClient):
         super().__init__(session=session)
 
     @endpoint
+    def get_joke(self, _type: str = "any") -> dict:
+        _type = _type.lower()
+        if _type.lower() not in self._joke_types:
+            raise RuntimeError("Unknown joke type provided: {}".format(_type))
+
+        return Get("/joke/", params={"type": _type})
+
+    @endpoint
+    def get_image(self, _type: str = "aww") -> str:
+        _type = _type.lower()
+        if _type not in self._image_types:
+            raise RuntimeError("Unknown image type provided: {}".format(_type))
+
+        return Get("/image/", params={"type": _type})
+
+    @endpoint
     def get_ai_response(
         self,
         message: str,
@@ -218,3 +233,7 @@ class RandomStuffV4(BaseClient):
         else:
             url = "/ai/"
         return Get(url, params=params)
+
+
+# Default alias
+RandomStuff = RandomStuffV4
