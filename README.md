@@ -1,4 +1,4 @@
-# PRSAW 0.3.1
+# PRSAW 0.4.0
 [![Downloads](https://static.pepy.tech/personalized-badge/prsaw?period=total&units=international_system&left_color=green&right_color=orange&left_text=Downloads)](https://pepy.tech/project/prsaw)
 
 PRSAW, an acronym for `Python Random Stuff API Wrapper`, is a wrapper for the [Random Stuff API](https://api.pgamerx.com/).
