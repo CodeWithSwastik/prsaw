@@ -44,6 +44,22 @@ print(joke)
 await rs.aclose()
 ```
 
+## Plans
+If you've purchased a premium plan you can pass that as a paramater to RandomStuffV3 or RandomStuffV4
+```python
+plan = "Can be pro/biz/mega/ultra"
+rs = RandomStuffV4(api_key = api_key, plan=plan)
+```
+
+
+## Server (V4)
+You can specify the server in RandomStuffV4 if you want
+```python
+server = "Can be primary/backup/unstable"
+rs = RandomStuffV4(api_key = api_key, server=server)
+```
+## Misc
+You can also pass `dev_name`, `bot_name` and `ai_language` as paramaters to RandomStuffV3 or RandomStuffV4.
 
 ## Functions available
 
@@ -51,8 +67,8 @@ The current list of asynchronous functions available are:
 
 ```python
 # endpoints
-await get_joke(_type = "any")  # Refer to https://api.pgamerx.com/endpoints
-await get_image(_type = "any") # for all the endpoints
+await get_joke(_type)  # Refer to https://api.pgamerx.com/endpoints
+await get_image(_type) # for all the endpoints
 await get_ai_response(msg)
 
 # others
@@ -62,3 +78,4 @@ await aclose() # closes the object
  ## Important Links
  * Register API key - [Click Here](https://api.pgamerx.com/register)           
  * Documentation/Endpoints - [Click Here](https://api.pgamerx.com/endpoints/)
+
