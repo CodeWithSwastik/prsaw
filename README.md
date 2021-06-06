@@ -14,7 +14,7 @@ You can install released versions of prsaw from the Python Package Index with pi
 ## Example Usage (No API KEY)
 ```python
 # import the module
-from prsaw import RandomStuff
+from prsaw import RandomStuffV2
 
 # initiate the object
 rs = RandomStuffV2() 
